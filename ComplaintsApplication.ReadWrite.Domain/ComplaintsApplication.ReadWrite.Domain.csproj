@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EventHandlers\**" />
+    <EmbeddedResource Remove="EventHandlers\**" />
+    <None Remove="EventHandlers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elasticsearch.Net" Version="7.6.2" />
+    <PackageReference Include="NEST" Version="7.6.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ComplaintsApplication.Common.Model\ComplaintsApplication.Common.Model.csproj" />
+    <ProjectReference Include="..\ComplaintsApplication.Domain.Core\ComplaintsApplication.Domain.Core.csproj" />
+  </ItemGroup>
+
+</Project>
