@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using ComplaintsApplication.Infra.IoC;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,15 +54,19 @@ namespace ComplaintsApplication.ReadWrite.API
                        options.RequireHttpsMetadata = false;
                        // name of the API resource
                        options.Audience = "ComplaintsApplicationRead";
-                   });//.AddIdentityServerAuthentication(options =>
-                   //{
-                   //    options.Authority = "http://localhost:44325";
-                   //    options.RequireHttpsMetadata = false;
-                   //    options.ApiName = "ComplaintsApplicationRead";
-                   //});
+                   });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Complaints Application Read Write APIs", Version = "v1" });
+                c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    In = ParameterLocation.Header,
+                    Description = "Basic Authorization header."
+                });
+                c.OperationFilter<OAuthOperationFilter>();
             });
 
             services.AddMediatR(typeof(Startup));
@@ -84,8 +92,12 @@ namespace ComplaintsApplication.ReadWrite.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Complaints Application Microservice V1");
+                c.OAuthClientId("cleint-id");
+                c.OAuthClientSecret("client-secret");
+                c.OAuthRealm("client-realm");
+                c.OAuthAppName("OAuth-app");
             });
-
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("default");
             app.UseAuthentication();
