@@ -66,6 +66,27 @@ namespace ComplaintsApplication.ReadWrite.API
                     In = ParameterLocation.Header,
                     Description = "Basic Authorization header."
                 });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "basic"
+                                }
+                            },
+                            new string[] {
+                                              "ComplaintsApplicationReadWrite",
+                                              "ComplaintsApplicationReadWrite.full_access",
+                                              "ComplaintsApplicationReadWrite.read_only",
+                                              "ComplaintsApplicationTransfer",
+                                              "ComplaintsApplicationTransfer.full_access",
+                                              "ComplaintsApplicationTransfer.read_only"
+                                        }
+                    }
+                });
                 c.OperationFilter<OAuthOperationFilter>();
             });
 
