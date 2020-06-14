@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComplaintsApplication.Common.Model;
 using ComplaintsApplication.ReadWrite.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,12 +21,14 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
         // GET: api/Complaint
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<Complaints>> Get()
         {
             return Ok(_complaintService?.GetComplaints());
         }
 
         // GET: api/Complaint/5
+        [Authorize]
         [HttpGet("{id}", Name = "Get")]
         public ActionResult<Complaints> Get(int id)
         {
@@ -33,6 +36,7 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
 
         // POST: api/Complaint
+        [Authorize]
         [HttpPost]
         public IActionResult Post([FromBody] Complaints complaint)
         {
@@ -48,6 +52,7 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
 
         // PUT: api/Complaint/5
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Complaints complaint)
         {
@@ -63,6 +68,7 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

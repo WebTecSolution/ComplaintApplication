@@ -32,7 +32,7 @@ namespace ComplaintsApplication.ReadWrite.API
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
-                    policy.AllowAnyOrigin()//for origin restriction use .WithOrigin([Origins])
+                    policy.WithOrigins("https://localhost:44370", "http://localhost:64932")//for origin restriction use .WithOrigin([Origins])
                           .AllowCredentials()
                           .AllowAnyHeader()
                           .AllowAnyMethod();
