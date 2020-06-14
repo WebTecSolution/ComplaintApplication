@@ -33,6 +33,7 @@ namespace ComplaintsApplication.ReadWrite.API
                 options.AddPolicy("default", policy =>
                 {
                     policy.WithOrigins("https://localhost:44370", "http://localhost:64932")//for origin restriction use .WithOrigin([Origins])
+                          .SetIsOriginAllowedToAllowWildcardSubdomains()
                           .AllowCredentials()
                           .AllowAnyHeader()
                           .AllowAnyMethod();
@@ -43,8 +44,10 @@ namespace ComplaintsApplication.ReadWrite.API
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//"Bearer"
                    .AddJwtBearer(options =>
                    {
+                       // base-address of your identityserver
                        options.Authority = "https://localhost:44325/";// Port 44370;
                        options.RequireHttpsMetadata = false;
+                       // name of the API resource
                        options.Audience = "ComplaintsApplicationRead";
                    });
             services.AddSwaggerGen(c =>
@@ -80,7 +83,6 @@ namespace ComplaintsApplication.ReadWrite.API
             app.UseRouting();
             app.UseCors("default");
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

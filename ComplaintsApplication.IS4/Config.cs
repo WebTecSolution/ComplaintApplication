@@ -17,9 +17,40 @@ namespace ComplaintsApplication.IS4
         public static IEnumerable<ApiResource> Apis =>
             new List<ApiResource>
             {
-                new ApiResource("ComplaintsApplicationRead"),
-                new ApiResource("ComplaintsApplicationWrite"),
-                new ApiResource("ComplaintsApplicationWriteToDB")
+                new ApiResource{
+                                    Name = "ComplaintsApplicationReadWrite",
+
+                                    Scopes =
+                                    {
+                                        new Scope()
+                                        {
+                                            Name = "ComplaintsApplicationReadWrite.full_access",
+                                            DisplayName = "Full access to ComplaintsApplicationReadWrite"
+                                        },
+                                        new Scope
+                                        {
+                                            Name = "ComplaintsApplicationReadWrite.read_only",
+                                            DisplayName = "Read only access to ComplaintsApplicationReadWrite"
+                                        }
+                                    }
+                                },
+                new ApiResource{
+                                    Name = "ComplaintsApplicationTransfer",
+
+                                    Scopes =
+                                    {
+                                        new Scope()
+                                        {
+                                            Name = "ComplaintsApplicationTransfer.full_access",
+                                            DisplayName = "Full access to ComplaintsApplicationTransfer"
+                                        },
+                                        new Scope
+                                        {
+                                            Name = "ComplaintsApplicationTransfer.read_only",
+                                            DisplayName = "Read only access to ComplaintsApplicationTransfer"
+                                        }
+                                    }
+                                }
             };
 
         public static IEnumerable<Client> GetClients =>
@@ -33,9 +64,13 @@ namespace ComplaintsApplication.IS4
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     // scopes that client has access to
-                    AllowedScopes = { "ComplaintsApplicationRead",
-                                      "ComplaintsApplicationWrite",
-                                      "ComplaintsApplicationWriteToDB"
+                    AllowedScopes = {
+                                      "ComplaintsApplicationReadWrite",
+                                      "ComplaintsApplicationReadWrite.full_access",
+                                      "ComplaintsApplicationReadWrite.read_only",
+                                      "ComplaintsApplicationTransfer",
+                                      "ComplaintsApplicationTransfer.full_access",
+                                      "ComplaintsApplicationTransfer.read_only"
                                     }
                 },
                  // resource owner password grant client
@@ -48,9 +83,13 @@ namespace ComplaintsApplication.IS4
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "ComplaintsApplicationRead",
-                                      "ComplaintsApplicationWrite",
-                                      "ComplaintsApplicationWriteToDB"
+                    AllowedScopes = {
+                                      "ComplaintsApplicationReadWrite",
+                                      "ComplaintsApplicationReadWrite.full_access",
+                                      "ComplaintsApplicationReadWrite.read_only",
+                                      "ComplaintsApplicationTransfer",
+                                      "ComplaintsApplicationTransfer.full_access",
+                                      "ComplaintsApplicationTransfer.read_only"
                                     }
                 },
                 // interactive ASP.NET Core MVC client
@@ -73,9 +112,12 @@ namespace ComplaintsApplication.IS4
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "ComplaintsApplicationRead",
-                        "ComplaintsApplicationWrite",
-                        "ComplaintsApplicationWriteToDB"
+                        "ComplaintsApplicationReadWrite",
+                        "ComplaintsApplicationReadWrite.full_access",
+                        "ComplaintsApplicationReadWrite.read_only",
+                        "ComplaintsApplicationTransfer",
+                        "ComplaintsApplicationTransfer.full_access",
+                        "ComplaintsApplicationTransfer.read_only"
                     },
 
                     AllowOfflineAccess = true
@@ -99,9 +141,12 @@ namespace ComplaintsApplication.IS4
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "ComplaintsApplicationRead",
-                        "ComplaintsApplicationWrite",
-                        "ComplaintsApplicationWriteToDB"
+                        "ComplaintsApplicationReadWrite",
+                        "ComplaintsApplicationReadWrite.full_access",
+                        "ComplaintsApplicationReadWrite.read_only",
+                        "ComplaintsApplicationTransfer",
+                        "ComplaintsApplicationTransfer.full_access",
+                        "ComplaintsApplicationTransfer.read_only"
                     },
 
                     AllowOfflineAccess = true
@@ -123,9 +168,13 @@ namespace ComplaintsApplication.IS4
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "ComplaintsApplicationRead",
-                        "ComplaintsApplicationWrite",
-                        "ComplaintsApplicationWriteToDB"
+                        "ComplaintsApplicationReadWrite",
+                        "ComplaintsApplicationReadWrite.full_access",
+                        "ComplaintsApplicationReadWrite.read_only",
+                        "ComplaintsApplicationTransfer",
+                        "ComplaintsApplicationTransfer.full_access",
+                        "ComplaintsApplicationTransfer.read_only"
+
                     }
                 }
             };

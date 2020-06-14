@@ -17,13 +17,13 @@ namespace ComplaintsApplication.ReadWrite.Domain.Repositories
         {
             Complaints complaints = null;
             ConnectionSettings settings = new ConnectionSettings(new Uri("http://localhost:9200"));
-            settings.DefaultIndex("employeestore");
+            settings.DefaultIndex("complaintstore");
             ElasticClient esClient = new ElasticClient(settings);
 
             var response = esClient.Search<Complaints>(s => s.Query(q => q.MatchAll()));
-            var employee1 = response.Hits.ToList();
+            var complaint1 = response.Hits.ToList();
             List<Complaints> empList = new List<Complaints>();
-            foreach (var item in employee1)
+            foreach (var item in complaint1)
             {
                 complaints = new Complaints
                 {
@@ -42,7 +42,7 @@ namespace ComplaintsApplication.ReadWrite.Domain.Repositories
         {
             Complaints complaints = null;
             ConnectionSettings settings = new ConnectionSettings(new Uri("http://localhost:9200"));
-            settings.DefaultIndex("employeestore");
+            settings.DefaultIndex("complaintstore");
             ElasticClient esClient = new ElasticClient(settings);
 
             var response = esClient.Search<Complaints>(s => s.Query(

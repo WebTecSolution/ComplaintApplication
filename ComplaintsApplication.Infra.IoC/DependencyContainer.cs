@@ -4,9 +4,12 @@ using ComplaintsApplication.ReadWrite.Application.Interfaces;
 using ComplaintsApplication.ReadWrite.Application.Services;
 using ComplaintsApplication.ReadWrite.Domain.CommandHandlers;
 using ComplaintsApplication.ReadWrite.Domain.Commands;
-using ComplaintsApplication.ReadWrite.Domain.Events;
 using ComplaintsApplication.ReadWrite.Domain.Interfaces;
 using ComplaintsApplication.ReadWrite.Domain.Repositories;
+using ComplaintsApplication.Transfer.Domain.Events;
+using ComplaintsApplication.Transfer.Domain.EventHandlers;
+using ComplaintsApplication.Transfer.Domain.Interfaces;
+using ComplaintsApplication.Transfer.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,9 +28,9 @@ namespace ComplaintsApplication.Infra.IoC
 
 
             ////Domain Events
-            //services.AddTransient<IEventHandler<NewComplaintCreatedEvent>, TransferNewComplaintEventHandler>();
-            //services.AddTransient<IEventHandler<UpdateComplaintEvent>, TransferUpdateComplaintEventHandler>();
-            //services.AddTransient<IEventHandler<DeleteComplaintEvent>, TransferDeleteComplaintEventHandler>();
+            services.AddTransient<IEventHandler<NewComplaintCreatedEvent>, TransferNewComplaintEventHandler>();
+            services.AddTransient<IEventHandler<UpdateComplaintEvent>, TransferUpdateComplaintEventHandler>();
+            services.AddTransient<IEventHandler<DeleteComplaintEvent>, TransferDeleteComplaintEventHandler>();
 
             //Domain Complaint Command
             services.AddTransient<IRequestHandler<CreateNewComplaintCommand, bool>, NewComplaintCommandHandler>();
@@ -37,7 +40,7 @@ namespace ComplaintsApplication.Infra.IoC
             // Application Services            
             services.AddTransient<IComplaintService, ComplaintService>();
             services.AddTransient<IComplaintRepository, ComplaintRepository>();
-            //services.AddTransient<IComplaintTransferRepository, ComplaintTransferRepository>();
+            services.AddTransient<IComplaintTransferRepository, ComplaintTransferRepository>();
         }
     }
 }

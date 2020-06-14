@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommandHandler\**" />
+    <Compile Remove="Commands\**" />
+    <EmbeddedResource Remove="CommandHandler\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <None Remove="CommandHandler\**" />
+    <None Remove="Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ComplaintsApplication.Common.Model\ComplaintsApplication.Common.Model.csproj" />
+    <ProjectReference Include="..\ComplaintsApplication.Domain.Core\ComplaintsApplication.Domain.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elasticsearch.Net" Version="7.6.2" />
+    <PackageReference Include="NEST" Version="7.6.2" />
+  </ItemGroup>
+
+</Project>

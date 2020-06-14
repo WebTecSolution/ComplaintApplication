@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using ComplaintsApplication.Common.Model;
 using ComplaintsApplication.ReadWrite.Application.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ComplaintController : ControllerBase
     {
         private readonly IComplaintService _complaintService;
@@ -28,20 +31,24 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
 
         // GET: api/Complaint/5
-        [Authorize]
         [HttpGet("{id}", Name = "Get")]
+        [Authorize]
         public ActionResult<Complaints> Get(int id)
         {
             return Ok(_complaintService?.GetComplaintById(id));
         }
 
         // POST: api/Complaint
-        [Authorize]
         [HttpPost]
-        public IActionResult Post([FromBody] Complaints complaint)
+        [Authorize]
+        public async Task<IActionResult> Post([FromBody] Complaints complaint)
         {
             try
             {
+                var token = await HttpContext.GetTokenAsync("access_token");
+                var jwtToken = new JwtSecurityToken(token);
+                int cid = Convert.ToInt32(jwtToken.Claims.FirstOrDefault(x => x.Type == "sub").Value.ToString());
+                complaint.ComplaintBy = cid;
                 _complaintService.InsertComplaint(complaint);
                 return Ok("New complaint register/log request sent successfully!");
             }
@@ -52,12 +59,16 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
 
         // PUT: api/Complaint/5
-        [Authorize]
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Complaints complaint)
+        [Authorize]
+        public async Task<IActionResult> Put(int id, [FromBody] Complaints complaint)
         {
             try
             {
+                var token = await HttpContext.GetTokenAsync("access_token");
+                var jwtToken = new JwtSecurityToken(token);
+                int cid = Convert.ToInt32(jwtToken.Claims.FirstOrDefault(x => x.Type == "sub").Value.ToString());
+                complaint.ComplaintBy = cid;
                 _complaintService.UpdateComplaint(id, complaint);
                 return Ok("Update complaint request sent successfully!");
             }
@@ -68,8 +79,9 @@ namespace ComplaintsApplication.ReadWrite.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [Authorize]
+
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try
