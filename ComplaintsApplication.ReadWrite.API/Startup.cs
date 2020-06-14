@@ -40,6 +40,7 @@ namespace ComplaintsApplication.ReadWrite.API
                 });
             });
             services.AddMvcCore()
+                    .AddApiExplorer()
                     .AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//"Bearer"
                    .AddJwtBearer(options =>
@@ -49,7 +50,12 @@ namespace ComplaintsApplication.ReadWrite.API
                        options.RequireHttpsMetadata = false;
                        // name of the API resource
                        options.Audience = "ComplaintsApplicationRead";
-                   });
+                   });//.AddIdentityServerAuthentication(options =>
+                   //{
+                   //    options.Authority = "http://localhost:44325";
+                   //    options.RequireHttpsMetadata = false;
+                   //    options.ApiName = "ComplaintsApplicationRead";
+                   //});
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Complaints Application Read Write APIs", Version = "v1" });
