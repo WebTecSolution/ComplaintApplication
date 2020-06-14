@@ -50,7 +50,7 @@ namespace ComplaintsApplication.ReadWrite.API
                    .AddJwtBearer(options =>
                    {
                        // base-address of your identityserver
-                       options.Authority = "https://localhost:44325/";// Port 44370;
+                       options.Authority = "https://localhost:44325/";
                        options.RequireHttpsMetadata = false;
                        // name of the API resource
                        options.Audience = "ComplaintsApplicationRead";
@@ -92,10 +92,6 @@ namespace ComplaintsApplication.ReadWrite.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Complaints Application Microservice V1");
-                c.OAuthClientId("cleint-id");
-                c.OAuthClientSecret("client-secret");
-                c.OAuthRealm("client-realm");
-                c.OAuthAppName("OAuth-app");
             });
             app.UseHttpsRedirection();
             app.UseRouting();
