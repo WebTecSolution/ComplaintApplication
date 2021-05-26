@@ -37,8 +37,8 @@ rabbitmqctl add_user Kashif Kashif
 ```
 6. Tags Assign 
 ```
-rabbitmqctrl set_user_tags [UserName] [Role>> Administrator etc]
-rabbitmqctrl set_user_tags Kashif administrator
+rabbitmqctl set_user_tags [UserName] [Role>> Administrator etc]
+rabbitmqctl set_user_tags Kashif administrator
 ```
 7. Setting permissions
 ```
