@@ -19,11 +19,11 @@ rabbitmq-plugins enable rabbitmq_management
 ```
 2. Start Server
 ```
-rabbitmqctl stop_app
+rabbitmqctl start_app
 ```
 3. Stop Server
 ```
-rabbitmqctl start_app
+rabbitmqctl stop_app
 ```
 4. Reset Server
 ```
